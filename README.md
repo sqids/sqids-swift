@@ -33,7 +33,7 @@ Add the following dependency to your Swift `Package.swift`:
 
 ```swift
 dependencies.append(
-    .package(url: "https://github.com/squids/squitss-swift.git", from: "1.0.0")
+    .package(url: "https://github.com/squids/squids-swift.git", from: "0.1.0")
 )
 ```
 

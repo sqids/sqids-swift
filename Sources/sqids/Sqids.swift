@@ -32,7 +32,6 @@ public struct Sqids {
         case invalidMinLength(Int)
         case valueError(Id)
         case maximumAttemptsReached
-        case invalidId
     }
     public static let defaultAlphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     public static let minAlphabetLength = 3
@@ -147,10 +146,7 @@ public struct Sqids {
         if !id.isEmpty {
             let characterSet = CharacterSet(alphabet.flatMap({ $0.unicodeScalars }))
             
-            if !id.unicodeScalars.reduce(true, { $0 && characterSet.contains($1) }) {
-                throw Error.invalidId
-            }
-            else {
+            if id.unicodeScalars.reduce(true, { $0 && characterSet.contains($1) }) {
                 let offset = alphabet.firstIndex(of: id.first!)!
                 var alphabet = splitReverse(offset: offset)
                 var value = String(Array(id).suffix(from: 1))

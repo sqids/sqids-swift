@@ -26,7 +26,7 @@ import XCTest
 @testable import sqids
 
 final class MinLengthTests: XCTestCase {
-    func test_simple() throws {
+    func testSimple() throws {
         let sqids = Sqids(minLength: Sqids.defaultAlphabet.count)
         let numbers: Sqids.Ids = [1, 2, 3]
         let id = "86Rf07xd4zBmiJXQG6otHEbew02c3PWsUOLZxADhCpKj7aVFv9I8RquYrNlSTM"

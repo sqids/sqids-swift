@@ -66,4 +66,83 @@ final class EncodeTests: XCTestCase {
             XCTAssertEqual(try sqids.decode(id), numbers)
         }
     }
+    
+    func testIncrementalNumbersSameIndex0() throws {
+        let sqids = Sqids()
+        let ids: [String: Sqids.Ids] = [
+            "SvIz": [0, 0],
+            "n3qa": [0, 1],
+            "tryF": [0, 2],
+            "eg6q": [0, 3],
+            "rSCF": [0, 4],
+            "sR8x": [0, 5],
+            "uY2M": [0, 6],
+            "74dI": [0, 7],
+            "30WX": [0, 8],
+            "moxr": [0, 9],
+        ]
+        for (id, numbers) in ids {
+            XCTAssertEqual(try sqids.encode(numbers), id)
+            XCTAssertEqual(try sqids.decode(id), numbers)
+        }
+    }
+
+    
+    func testIncrementalNumbersSameIndex1() throws {
+        let sqids = Sqids()
+        let ids: [String: Sqids.Ids] = [
+            "SvIz": [0, 0],
+            "nWqP": [1, 0],
+            "tSyw": [2, 0],
+            "eX68": [3, 0],
+            "rxCY": [4, 0],
+            "sV8a": [5, 0],
+            "uf2K": [6, 0],
+            "7Cdk": [7, 0],
+            "3aWP": [8, 0],
+            "m2xn": [9, 0],
+        ]
+        for (id, numbers) in ids {
+            XCTAssertEqual(try sqids.encode(numbers), id)
+            XCTAssertEqual(try sqids.decode(id), numbers)
+        }
+    }
+    
+    func testMultiInput() throws {
+        let sqids = Sqids()
+        let numbers: Sqids.Ids = Array(1..<100)
+        let output = try sqids.decode(try sqids.encode(numbers))
+        
+        XCTAssertEqual(numbers, output)
+    }
+    
+    func testEncodingNoNumbers() throws {
+        let sqids = Sqids()
+        
+        XCTAssertEqual(try sqids.encode([]), "")
+    }
+    
+    func testDecodingEmptyString() throws {
+        let sqids = Sqids()
+        
+        XCTAssertEqual(try sqids.decode(""), [])
+    }
+    
+    func testDecodingInvalidCharacter() throws {
+        let sqids = Sqids()
+        
+        XCTAssertEqual(try sqids.decode("*"), [])
+    }
+    
+    func testEncodeOutOfRangeNumbers() throws {
+        let sqids = Sqids()
+        
+        do {
+            _ = try sqids.encode([-1])
+            XCTFail()
+        }
+        catch Sqids.Error.valueError(let id) {
+            XCTAssertEqual(-1, id)
+        }
+    }
 }
