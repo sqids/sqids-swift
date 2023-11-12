@@ -1,6 +1,6 @@
 # [Sqids Swift](https://sqids.org/swift)
 
-[![Github Actions](https://img.shields.io/github/actions/workflow/status/sqids/sqids-swift/tests.yml)](https://github.com/sqids/sqids-swift/actions)
+[![Github Actions](https://img.shields.io/github/actions/workflow/status/sqids/sqids-swift/swift.yml)](https://github.com/sqids/sqids-swift/actions)
 
 [Sqids](https://sqids.org/swift) (*pronounced "squids"*) is a small library that lets you **generate unique IDs from numbers**. It's good for link shortening, fast & URL-safe ID generation and decoding back into numbers for quicker database lookups.
 
