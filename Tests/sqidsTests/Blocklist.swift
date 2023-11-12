@@ -25,7 +25,7 @@
 import XCTest
 @testable import sqids
 
-final class SqidsBlocklistTests: XCTestCase {
+final class BlocklistTests: XCTestCase {
     func testDefaultBlocklist() throws {
         let sqids = Sqids()
         
@@ -76,7 +76,7 @@ final class SqidsBlocklistTests: XCTestCase {
         XCTAssertEqual(try sqids.decode("5sQRZO"), [1, 2, 3])
     }
     
-    func test_match_against_short_blocklist_word() throws {
+    func testMatchAgainstShortBlocklistWord() throws {
         let sqids = Sqids(blocklist: ["pnd"])
         
         XCTAssertEqual(try sqids.decode(try sqids.encode([1000])), [1000])
@@ -107,7 +107,7 @@ final class SqidsBlocklistTests: XCTestCase {
             _ = try sqids.encode([0])
             XCTFail()
         }
-        catch(error: Sqids.Error.maximumAttemptsReached) {
+        catch Sqids.Error.maximumAttemptsReached {
             
         }
     }
