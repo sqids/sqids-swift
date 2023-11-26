@@ -217,7 +217,7 @@ public struct Sqids {
         let count = Id(alphabet.count)
         
         return id.reduce(0) {
-            $0 * count + Id(alphabet.firstIndex(of: $1) ?? -1)
+            $0 &* count &+ Id(alphabet.firstIndex(of: $1) ?? -1)
         }
     }
     
