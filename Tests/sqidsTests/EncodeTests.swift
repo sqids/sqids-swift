@@ -145,4 +145,13 @@ final class EncodeTests: XCTestCase {
             XCTAssertEqual(-1, id)
         }
     }
+    
+    func testDecodeOfUntrustedInput() throws {
+        let sqids = Sqids()
+        let badInput = try sqids.encode([Int64.max]) + "a"
+        do {
+            _ = try sqids.decode(badInput) // Should not crash
+        }
+        catch Sqids.Error.overflow { }
+    }
 }
