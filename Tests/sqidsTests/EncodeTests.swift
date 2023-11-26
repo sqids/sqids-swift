@@ -151,7 +151,9 @@ final class EncodeTests: XCTestCase {
         let badInput = try sqids.encode([Int64.max]) + "a"
         do {
             _ = try sqids.decode(badInput) // Should not crash
+            XCTFail("Overflow not detected")
         }
-        catch Sqids.Error.overflow { }
+        catch Sqids.Error.overflow { 
+        }
     }
 }
