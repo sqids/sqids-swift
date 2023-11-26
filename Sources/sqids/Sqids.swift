@@ -32,6 +32,7 @@ public struct Sqids {
         case invalidMinLength(Int)
         case valueError(Id)
         case maximumAttemptsReached
+        case overflow
     }
     public static let defaultAlphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     public static let minAlphabetLength = 3
@@ -160,7 +161,7 @@ public struct Sqids {
                             break
                         }
                         else {
-                            let number = toNumber(
+                            let number = try toNumber(
                                 id: chunks[0],
                                 alphabet: Array(alphabet.suffix(from: 1))
                             )
@@ -213,11 +214,17 @@ public struct Sqids {
         return characters
     }
     
-    func toNumber(id: String, alphabet: [Character]) -> Id {
+    func toNumber(id: String, alphabet: [Character]) throws -> Id {
         let count = Id(alphabet.count)
         
-        return id.reduce(0) {
-            $0 &* count &+ Id(alphabet.firstIndex(of: $1) ?? -1)
+        return try id.reduce(0) {
+            let (product, productOverflow) = $0.multipliedReportingOverflow(by: count)
+            guard !productOverflow else { throw Error.overflow }
+            
+            let (sum, sumOverflow) = product.addingReportingOverflow(Id(alphabet.firstIndex(of: $1) ?? -1))
+            guard !sumOverflow else { throw Error.overflow }
+            
+            return sum
         }
     }
     
