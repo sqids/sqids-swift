@@ -55,8 +55,8 @@ public struct Sqids {
             "Alphabet length must be at least \(Self.minAlphabetLength)"
         )
         assert(
-            minLength >= 0 && minLength < Self.minLengthLimit,
-            "Alphabet length must be at least \(Self.minAlphabetLength)"
+            minLength >= 0 && minLength <= Self.minLengthLimit,
+            "Minimum length has to be between 0 and \(Self.minLengthLimit)"
         )
         assert(
             alphabet.reduce(true, { $0 && $1.isASCII }),
