@@ -238,7 +238,7 @@ public struct Sqids {
                         return true
                     }
                 } 
-                else if word.first!.isNumber {
+                else if word.contains(where: \.isNumber) {
                     if id.hasPrefix(word) || id.hasSuffix(word) {
                         return true
                     }
